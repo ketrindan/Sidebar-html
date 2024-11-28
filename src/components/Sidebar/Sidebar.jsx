@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '../../assets/logo.png';
 import PropTypes from 'prop-types';
+import { ExpandBtn, Logo, NavHeader, NavItem, NavList, SidebarContainer, Text, Title } from './styles';
 
 const routes = [
     { title: 'Home', icon: 'fas-solid fa-house', path: '/' },
@@ -18,9 +19,12 @@ const bottomRoutes = [
     { title: 'Support', icon: 'phone-volume', path: '/support' },
 ];
 
+
 const Sidebar = (props) => {
     const { color } = props;
     const [isOpened, setIsOpened] = useState(false);
+    const [clickedItem, setClickedItem] = useState(null);
+    const prev = useRef();
     const containerClassnames = classnames('sidebar', { opened: isOpened });
 
     const goToRoute = (path) => {
@@ -31,46 +35,59 @@ const Sidebar = (props) => {
         setIsOpened(v => !v);
     };
 
+    const clickNavItem = (e, route) => {
+        prev.current && prev.current.classList.remove('active');
+        goToRoute(route.path);
+        e.currentTarget.classList.add('active');
+        setClickedItem(e.currentTarget);
+    }
+
+    useEffect(() => {
+        prev.current = clickedItem;
+    })
+
     return (
-        <div className={ containerClassnames }>
-            <div>
-                <img src={ logo } alt="TensorFlow logo"/>
-                <span>TensorFlow</span>
-                <div onClick={ toggleSidebar }>
+        <SidebarContainer theme={ color } className={ containerClassnames }>
+            <NavHeader>
+                <Logo src={ logo } alt="TensorFlow logo"/>
+                <Title theme={ color }>TensorFlow</Title>
+                <ExpandBtn theme={ color } opened={isOpened} onClick={ toggleSidebar }>
                     <FontAwesomeIcon icon={ isOpened ? 'angle-left' : 'angle-right' }/>
-                </div>
-            </div>
-            <div>
+                </ExpandBtn>
+            </NavHeader>
+            <NavList>
                 {
                     routes.map(route => (
-                        <div
+                        <NavItem
+                            theme={ color }
                             key={ route.title }
-                            onClick={() => {
-                                goToRoute(route.path);
+                            onClick={(e) => {
+                                clickNavItem(e, route);
                             }}
                         >
                             <FontAwesomeIcon icon={ route.icon }/>
-                            <span>{ route.title }</span>
-                        </div>
+                            <Text theme={ color }>{ route.title }</Text>
+                        </NavItem>
                     ))
                 }
-            </div>
-            <div>
+            </NavList>
+            <NavList>
                 {
                     bottomRoutes.map(route => (
-                        <div
+                        <NavItem
+                            theme={ color }
                             key={ route.title }
-                            onClick={() => {
-                                goToRoute(route.path);
+                            onClick={(e) => {
+                                clickNavItem(e, route);
                             }}
                         >
                             <FontAwesomeIcon icon={ route.icon }/>
-                            <span>{ route.title }</span>
-                        </div>
+                            <Text theme={ color }>{ route.title }</Text>
+                        </NavItem>
                     ))
                 }
-            </div>
-        </div>
+            </NavList>
+        </SidebarContainer>
     );
 };
 
