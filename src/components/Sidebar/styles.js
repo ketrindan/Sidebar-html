@@ -34,7 +34,7 @@ export const ExpandBtn = styled.div`
   position: absolute;
   top: auto;
   right: ${(props) => 
-    props.opened === true ? '-30px' : '-50px'
+    props.opened === true ? '-30px' : '-45px'
   };
   display: flex;
   justify-content: center;
