@@ -9,10 +9,10 @@ export const SidebarContainer = styled.nav`
   box-sizing: border-box;
   border-radius: 10px;
   background: ${(props) =>
-    props.theme === 'light' ? themeLight.sidebar_background_light_default : themeDark.sidebar_background_dark_default
+    props.theme.color === 'light' ? themeLight.sidebar_background_light_default : themeDark.sidebar_background_dark_default
   };
   color: ${(props) => 
-    props.theme === 'light' ? themeLight.text_light_default : themeDark.text_dark_default
+    props.theme.color === 'light' ? themeLight.text_light_default : themeDark.text_dark_default
   };
   display: flex;
   flex-direction: column;
@@ -33,14 +33,14 @@ export const Logo = styled.img`
 
 export const Title = styled.span`
   color: ${(props) => 
-    props.theme === 'light' ? themeLight.text_logo_light_default : themeDark.text_logo_dark_default
+    props.theme.color === 'light' ? themeLight.text_logo_light_default : themeDark.text_logo_dark_default
   };
   font-size: 20px;
 `;
 
 export const ExpandBtn = styled.div`
   background: ${(props) =>
-    props.theme === 'light' ? (props.opened === true ? themeLight.button_background_light_active : themeLight.button_background_light_default)
+    props.theme.color === 'light' ? (props.opened === true ? themeLight.button_background_light_active : themeLight.button_background_light_default)
      : (props.opened === true ? themeDark.button_background_dark_active : themeDark.button_background_dark_default)
   };
   border-radius: 50%;
@@ -71,12 +71,12 @@ export const NavList = styled.ul`
 
 export const Text = styled.span`
   color: ${(props) => 
-    props.theme === 'light' ? themeLight.text_light_default : themeDark.text_dark_default
+    props.theme.color === 'light' ? themeLight.text_light_default : themeDark.text_dark_default
   };
 
   &:hover {
     color: ${(props) => 
-      props.theme === 'light' ? themeLight.text_light_hover : themeDark.text_dark_hover
+      props.theme.color === 'light' ? themeLight.text_light_hover : themeDark.text_dark_hover
     };
   }
 `;
@@ -92,19 +92,19 @@ export const NavItem = styled.li`
   
   &:hover {
     background: ${(props) => 
-      props.theme === 'light' ? themeLight.sidebar_background_light_hover : themeDark.sidebar_background_dark_hover
+      props.theme.color === 'light' ? themeLight.sidebar_background_light_hover : themeDark.sidebar_background_dark_hover
     };
   }
 
   &.active {
     background: ${(props) => 
-      props.theme === 'light' ? themeLight.sidebar_background_light_active : themeDark.sidebar_background_dark_active
+      props.theme.color === 'light' ? themeLight.sidebar_background_light_active : themeDark.sidebar_background_dark_active
     };
   }
 
   &.active ${Text} {
     color: ${(props) => 
-      props.theme === 'light' ? themeLight.text_light_active : themeDark.text_dark_active
+      props.theme.color === 'light' ? themeLight.text_light_active : themeDark.text_dark_active
     };
   }
 `;
